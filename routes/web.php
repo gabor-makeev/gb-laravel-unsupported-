@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\AboutPageController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CreateArticlePageController;
+use App\Http\Controllers\SignInPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,17 +20,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcomePage');
 });
 
-Route::get('/welcome/{user}', function (string $user) {
-    return "Welcome $user";
-});
+Route::get('/categories', [CategoriesController::class, 'show']);
 
-Route::get('/about', function () {
-    return 'About';
-});
+Route::get('/categories/{categoryName}', [ArticlesController::class, 'show']);
 
-Route::get('/news', function () {
-    return 'News';
-});
+Route::get('/categories/{categoryName}/{articleId}', [ArticleController::class, 'show']);
+
+Route::get('/create', [CreateArticlePageController::class, 'index']);
+
+Route::get('/signin', [SignInPageController::class, 'index']);
+
+Route::get('/about', [AboutPageController::class, 'index']);
