@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\AboutPageController;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CreateArticlePageController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SignInPageController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +22,11 @@ Route::get('/', function () {
     return view('welcomePage');
 });
 
-Route::get('/categories', [CategoriesController::class, 'show']);
+Route::get('/categories', [CategoriesController::class, 'index']);
 
-Route::get('/categories/{categoryName}', [ArticlesController::class, 'show']);
+Route::get('/categories/{categoryName}', [NewsController::class, 'index']);
 
-Route::get('/categories/{categoryName}/{articleId}', [ArticleController::class, 'show']);
+Route::get('/categories/{categoryName}/{articleId}', [NewsController::class, 'show']);
 
 Route::get('/create', [CreateArticlePageController::class, 'index']);
 
