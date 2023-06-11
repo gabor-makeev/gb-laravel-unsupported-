@@ -8,7 +8,7 @@ class NewsController extends Controller
 {
     public function index(string $categoryName): View
     {
-        return view('articlesPage', [
+        return view('news.index', [
             'categoryName' => $categoryName,
             'articles' => $this->getNews()[$categoryName]
         ]);
@@ -16,7 +16,7 @@ class NewsController extends Controller
 
     public function show($categoryName, $articleId): View
     {
-        return view('articlePage', [
+        return view('news.show', [
             'article' => $this->getNews()[$categoryName][$articleId]
         ]);
     }
