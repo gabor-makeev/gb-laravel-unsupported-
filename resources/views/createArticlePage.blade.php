@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Create article</title>
-</head>
-<body>
-@include('menu')
-<h1>Sign in</h1>
+@extends('layouts.main')
+@section('title')| Create article @stop
+@section('content')
+<h1>Create article</h1>
 <form action="/create">
     <label>Title
         <input type="text">
@@ -29,5 +23,4 @@
     </label><br>
     <input type="submit" value="Create">
 </form>
-</body>
-</html>
+@endsection

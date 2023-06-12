@@ -8,6 +8,6 @@ class CategoriesController extends Controller
 {
     public function index(): View
     {
-        return view('categoriesPage', ['categories' => array_keys($this->getNews())]);
+        return view('categories.index', ['categories' => array_keys($this->getNews())]);
     }
 }
