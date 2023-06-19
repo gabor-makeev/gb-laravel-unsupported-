@@ -8,7 +8,7 @@
             <div class="col p-4 d-flex flex-column position-static">
                 <strong class="d-inline-block mb-2 text-primary-emphasis">{{ ucfirst($categoryName) }}</strong>
                 <h3 class="mb-0">{{ $article['title'] }}</h3>
-                <p class="card-text mb-auto">{{ $article['content'] }}</p>
+                <p class="card-text mb-auto">{{ $article['short_description'] }}</p>
                 <a href="/categories/{{ $categoryName }}/{{ $articleIdx }}" class="icon-link gap-1 icon-link-hover stretched-link">
                         Continue reading
                     <svg class="bi"><use xlink:href="#chevron-right"/></svg>
