@@ -4,27 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\News;
+use App\Queries\NewsQueryBuilder;
 use Illuminate\Contracts\View\View;
 
 class NewsController extends Controller
 {
-    public function index(string $categoryId): View
+    public function index(Category $category, NewsQueryBuilder $newsQueryBuilder): View
     {
-        $newsModel = app(News::class);
-        $categoryModel = app(Category::class);
-
         return view('news.index', [
-            'category' => $categoryModel->getCategoryById($categoryId),
-            'articles' => $newsModel->getNewsByCategory($categoryId)
+            'category' => $category,
+            'articles' => $newsQueryBuilder->getActiveNewsByCategory($category)
         ]);
     }
 
-    public function show($newsId): View
+    public function show(News $news): View
     {
-        $model = app(News::class);
-
         return view('news.show', [
-            'article' => $model->getNewsById($newsId)
+            'newsItem' => $news
         ]);
     }
 }

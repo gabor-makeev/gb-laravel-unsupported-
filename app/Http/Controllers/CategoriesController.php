@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Queries\CategoriesQueryBuilder;
 use Illuminate\Contracts\View\View;
 
 class CategoriesController extends Controller
 {
-    public function index(): View
+    public function index(CategoriesQueryBuilder $categoriesQueryBuilder): View
     {
-        $model = app(Category::class);
-
-        return view('categories.index', ['categories' => $model->getCategories()]);
+        return view('categories.index', ['categories' => $categoriesQueryBuilder->getAll()]);
     }
 }

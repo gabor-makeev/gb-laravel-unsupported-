@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Enums\NewsStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class News extends Model
 {
@@ -13,21 +15,37 @@ class News extends Model
 
     protected $table = 'news';
 
-    public function getNewsByCategory($categoryId): Collection
-    {
-        $newsIds = DB::table('news_categories')
-            ->where('category_id', '=', $categoryId)
-            ->pluck('news_id')
-            ->toArray();
+    protected $fillable = [
+        'title',
+        'content',
+        'preview_content',
+        'status_id',
+        'source_id'
+    ];
 
-        return DB::table($this->table)
-            ->whereIn('id', $newsIds)
-            ->orderBy('id')
-            ->get();
+    public function scopeActive(Builder $query): void
+    {
+        $query->join('statuses', 'statuses.id', '=', "{$this->table}.status_id")
+            ->where('statuses.name', NewsStatus::PUBLISHED);
     }
 
-    public function getNewsById($id): mixed
+    public function categories(): BelongsToMany
     {
-        return DB::table($this->table)->find($id);
+        return $this->belongsToMany(
+            Category::class,
+            'news_categories',
+            'news_id',
+            'category_id'
+        );
+    }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
+
+    public function source(): BelongsTo
+    {
+        return $this->belongsTo(Source::class, 'source_id');
     }
 }
